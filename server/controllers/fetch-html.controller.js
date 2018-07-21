@@ -36,6 +36,8 @@ const getDocumentLinksAnalysis = ($) => {
     return analysis;
 };
 
+const getForm = $ => $('form').length;
+
 const fetchHTML = (req, res) => {
     const {
         pageURL
@@ -52,9 +54,9 @@ const fetchHTML = (req, res) => {
                 version: findDocumentVersion(data),
                 title: $('title').html(),
                 headingsLevels: findHeadingsCount(cheerio.load(data)),
-                anchorTagsCount: getDocumentLinksAnalysis(cheerio.load(data))
+                anchorTagsCount: getDocumentLinksAnalysis(cheerio.load(data)),
+                formCount: getForm(cheerio.load(data))
             }
-            // pageInsights.containsForm = $('body').find('form');
             return sendSuccess({
                 res,
                 message: 'Successfully fetched data',

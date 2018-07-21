@@ -11,7 +11,7 @@ class Home extends Component {
       showInsights: false,
       statusCode: null,
       version: null,
-      containForm: null,
+      formCount: null,
       title: null,
       internalLinks: 0,
       externalLinks: 0,
@@ -31,7 +31,7 @@ class Home extends Component {
     event.preventDefault();    
     console.log(`A URL was submitted: ${this.state.value}`);
     const regex = /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/;
-    if (!regex.test(this.state.value) && false) {
+    if (!regex.test(this.state.value)) {
       this.setState({
         showError: true,
         errorMessage: 'Seems like your URL is in invalid format'
@@ -53,7 +53,8 @@ class Home extends Component {
             title: response.data.title,
             internalLinks: response.data.anchorTagsCount.internalLinks,
             externalLinks: response.data.anchorTagsCount.externalLinks,
-            headingsLevels: response.data.headingsLevels
+            headingsLevels: response.data.headingsLevels,
+            formCount: response.data.formCount
           })
         })
         .catch((err) => {
@@ -103,7 +104,7 @@ class Home extends Component {
           <div>
             Status Code <Label>{this.state.statusCode}</Label><br/>
             HTML Version <Label>{this.state.version}</Label><br/>
-            Does contain Form? <Label>{this.state.containForm}</Label><br/>
+            Does contain Form? <Label>{this.state.formCount}</Label><br/>
             Page Title <Label>{this.state.title}</Label><br/>
             <Table striped bordered condensed hover>
               <thead>
