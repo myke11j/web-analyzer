@@ -36,7 +36,7 @@ For eg, try sending anything other than `pageURL` query in `/fetch-html` service
 
 ## Steps/Tech Stack
 
-- To choose stack, I picked MERN as React is good to develop apps fast. I've used a [boilerplate](https://github.com/keithweaver/MERN-boilerplate) for setting up the baic skeleton of app but modified it a lot.
+- When picking stack for this app, I chose MERN as React is quite good to develop apps fast. I've used a [boilerplate](https://github.com/keithweaver/MERN-boilerplate) for setting up the baic skeleton of app but modified it a lot.
 - One assumption during building the app was that user can enter invalid URLs, so instead of sending every request to server, I have handled it on front-end itself.
 - To make sure service can only be requested with a specific set number of params or payload or queries, I've build a middleware (read more in middleware section).
 - In case of serer down, `unable to fetch` message will be showed to user on submit.
