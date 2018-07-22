@@ -51,3 +51,19 @@ For eg, try sending anything other than `pageURL` query in `/fetch-html` service
 - Only pages hosted over https can be analyzed, if user request a http page, alert user about it. Eg URL: `http://harrypotter.wikia.com/wiki/Hufflepuff`
 - If page requested by user doesn't exist, show the user necessary information. Eg URL: `https://www.npmjs.com/package/aleddd`
 - Show different status codes to user on error, like 404 and 302 (https://mail.google.com/mail/u/0/#inbox)
+
+## Sample URLs tested
+
+```
+https://www.example.com
+http://www.example.com
+www.example.com
+https://www.npmjs.com/package/aleddd
+https://mail.google.com/mail/u/0/#inbox
+http://harrypotter.wikia.com/wiki/Hufflepuff
+https://www.youtube.com/feed/subscriptions (Will give 303, as its user specific and required login
+)
+https://www.youtube.com/user/WWEFanNation/videos
+https://www.scout24.com/en/Home.aspx
+https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+```
