@@ -30,7 +30,7 @@ class Home extends Component {
   handleSubmit(event) {
     event.preventDefault();    
     console.log(`A URL was submitted: ${this.state.value}`);
-    const regex = /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/;
+    const regex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
     if (!regex.test(this.state.value)) {
       this.setState({
         showError: true,
@@ -54,7 +54,7 @@ class Home extends Component {
             internalLinks: response.data.anchorTagsCount.internalLinks,
             externalLinks: response.data.anchorTagsCount.externalLinks,
             headingsLevels: response.data.headingsLevels,
-            formCount: response.data.formCount
+            formCount: response.data.formCount ? 'Yes' : 'No'
           })
         })
         .catch((err) => {
@@ -71,8 +71,6 @@ class Home extends Component {
 
   createHeadingLevelTable () {
     let table = []
-
-    // Outer loop to create parent
     for (let i = 0; i < this.state.headingsLevels.length; i++) {
       const row = this.state.headingsLevels[i];
       table.push(<tr><td>{row.level}</td><td>{row.count}</td></tr>)
@@ -82,10 +80,8 @@ class Home extends Component {
 
   render() {
     return (
-      <form>
-        <FormGroup
-          controlId="formBasicText"
-        >
+      <form className='web-analyzer'>
+        <FormGroup controlId="formBasicText">
           <FormControl
             type="text"
             value={this.state.value}
