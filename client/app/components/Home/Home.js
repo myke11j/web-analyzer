@@ -39,7 +39,8 @@ class Home extends Component {
     } else {
       this.setState({
         showError: false,
-        errorMessage: null
+        errorMessage: null,
+        showInsights: false
       })
       fetch(`http://localhost:8000/fetch-html?pageURL=${this.state.value}`)
         .then((data) => {

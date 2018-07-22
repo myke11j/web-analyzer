@@ -50,3 +50,4 @@ For eg, try sending anything other than `pageURL` query in `/fetch-html` service
 - If server is down, alert user about it.
 - Only pages hosted over https can be analyzed, if user request a http page, alert user about it. Eg URL: `http://harrypotter.wikia.com/wiki/Hufflepuff`
 - If page requested by user doesn't exist, show the user necessary information. Eg URL: `https://www.npmjs.com/package/aleddd`
+- Show different status codes to user on error, like 404 and 302 (https://mail.google.com/mail/u/0/#inbox)
