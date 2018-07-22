@@ -26,6 +26,14 @@ const fetchHTML = (req, res) => {
                 const {
                     data, statusCode
                 } = response;
+                if (statusCode !== 200) {
+                    const pageInsights =  { statusCode }
+                    return sendSuccess({
+                        res,
+                        message: 'Page not Found!',
+                        data: pageInsights
+                    })
+                }
                 const $ = cheerio.load(data);
                 const pageInsights =  {
                     statusCode,
@@ -44,13 +52,14 @@ const fetchHTML = (req, res) => {
             .catch((err) => {
                 return sendFailure({
                     res,
-                    message: `Unable to fetch page requested ${err.reason}. Host: ${err.host}`
+                    message: `Unable to fetch page requested ${err}}`
                 })
             });
-    } catch (error) {
+    } catch (err) {
+        console.log(err);
         return sendFailure({
             res,
-            message: `Unable to fetch page requested ${err.reason}. Host: ${err.host}` 
+            message: `Unable to fetch page requested ${err}` 
         })
     }
 };

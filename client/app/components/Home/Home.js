@@ -24,7 +24,7 @@ class Home extends Component {
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({ value: event.target.value });
   }
 
   handleSubmit(event) {
@@ -34,7 +34,7 @@ class Home extends Component {
     if (!regex.test(this.state.value)) {
       this.setState({
         showError: true,
-        errorMessage: 'Seems like your URL is in invalid format'
+        errorMessage: 'Seems like your URL is in invalid format',
       })
     } else {
       this.setState({
@@ -46,24 +46,32 @@ class Home extends Component {
           return data.json()
         })
         .then((response) => {
-          this.setState({
-            showInsights: true,
-            statusCode: response.data.statusCode,
-            version: response.data.version,
-            title: response.data.title,
-            internalLinks: response.data.anchorTagsCount.internalLinks,
-            externalLinks: response.data.anchorTagsCount.externalLinks,
-            headingsLevels: response.data.headingsLevels,
-            formCount: response.data.formCount ? 'Yes' : 'No'
-          })
+          if (response.data.statusCode !== 200) {
+            this.setState({ 
+              showError: true,
+              errorMessage: response.message += response.data.statusCode ? ` Code: ${response.data.statusCode}` : null,
+              showInsights: false
+            })
+          } else {
+            this.setState({
+              showInsights: true,
+              statusCode: response.data.statusCode,
+              version: response.data.version,
+              title: response.data.title,
+              internalLinks: response.data.anchorTagsCount.internalLinks,
+              externalLinks: response.data.anchorTagsCount.externalLinks,
+              headingsLevels: response.data.headingsLevels,
+              formCount: response.data.formCount ? 'Yes' : 'No'
+            })
+          }
+          
         })
         .catch((err) => {
           console.error(err)
           this.setState({ 
             showError: true,
             errorMessage: err.message,
-            showInsights: false,
-            statusCode: err.code
+            showInsights: false
           })
         })
     }
